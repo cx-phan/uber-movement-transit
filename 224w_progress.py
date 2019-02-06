@@ -8,6 +8,7 @@ import csv
 
 
 lines = [] 
+
 with open("sf_uber_movement.prn") as file:
 	for line in file:
 		lines.append(line)
