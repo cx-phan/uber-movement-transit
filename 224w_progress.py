@@ -1,8 +1,9 @@
 import networkx as nx
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from datetime import datetime
 from collections import defaultdict
 import csv
+import os
 
 
 lines = [] 
@@ -104,14 +105,16 @@ with open("stop_times.txt") as stop_times:
 for edge, total in edges_times.items():
 	bart.add_edge(edge[0], edge[1], weight=float(total)/edges_counts[edge])
 
-
-
 in_degree = nx.in_degree_centrality(bart)
 out_degree = nx.out_degree_centrality(bart)
 pagerank8 = nx.pagerank(bart, alpha=0.8)
-pagerank95 = nx.pagerank(bart, alpha=0.95) #paper found this best
+pagerank95 = nx.pagerank(bart, alpha=0.95) #paper found this to be the most optimal. 
 betweeness_centrality = nx.betweenness_centrality(bart, weight='weight')
 sccs = nx.strongly_connected_components(bart)
+
+filename = 'sf_bart_stats.csv'
+if os.path.exists(filename):
+  	os.remove(filename)
 
 with open('sf_bart_stats.csv', 'w') as csvfile:
     filewriter = csv.writer(csvfile, delimiter=',',
