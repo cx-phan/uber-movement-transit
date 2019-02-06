@@ -5,8 +5,6 @@ from collections import defaultdict
 import csv
 
 
-
-
 lines = [] 
 
 with open("sf_uber_movement.prn") as file:
